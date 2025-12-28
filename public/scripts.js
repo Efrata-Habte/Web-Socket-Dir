@@ -1,74 +1,82 @@
-// client side
-// console.log(io)
+const Base = 'http://localhost:3000'; 
+const API = `${Base}/messages`;
 
-const socket=io('http://localhost:4000' , {
-    auth : {
-        secret : "This is somethig confidential"
-    },
-    query : {
-        meaningOfLife : 42
-    }
-});
-
-// socket.on('welcome', data=>{
-//     console.log(data)
-
-//     socket.emit('Thankyou','Thankyou dear')
-
-//     socket.on('HI there',data=>{
-//         console.log(data, "? Not really")})
-// })
-
-// socket.on("Hello All", data =>{
-//     console.log("Message to all clients", data)
-// })
-
-// socket.on ("some-event", (callback)=>{
-//     callback ('I get it');
-// })
+// --- NEW: Handle Permanent User ID and Username ---
+// If no ID exists in this browser, create a random one
+if (!localStorage.getItem('chat_userId')) {
+    localStorage.setItem('chat_userId', 'user_' + Math.random().toString(36).substr(2, 9));
+}
+const myId = localStorage.getItem('chat_userId');
 
 const text = document.querySelector('.chat-input input');
 const send = document.getElementById('send');
 const chatMessages = document.querySelector('.chat-messages');
 const usernameInput = document.getElementById('username');
 
-send.addEventListener('click', (e) => {
-  e.preventDefault();
+// Load saved username if it exists
+usernameInput.value = localStorage.getItem('chat_username') || "";
 
-  const newMessage = text.value.trim();
-  if (!newMessage) return;
-
-  // Get username, default to "Anonymous" if empty
-  const username = usernameInput.value.trim() || "Anonymous";
-
-  // Send message object to server
-  socket.emit('Message from Client to Server', {
-    text: newMessage,
-    senderId: socket.id,
-    username: username,
-    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-  });
-
-  text.value = '';
+const socket = io('http://localhost:4000', {
+    auth: { secret: "This is somethig confidential" }
 });
 
+// Function to render bubbles
+function appendMessage(data) {
+    const msgDiv = document.createElement('div');
+    msgDiv.classList.add('message');
+
+    // COMPARE with myId instead of socket.id for history persistence
+    if (data.userId === myId) {
+        msgDiv.classList.add('sent');
+    } else {
+        msgDiv.classList.add('received');
+    }
+
+    msgDiv.innerHTML = `
+        <div>${data.text}</div>
+        <span class="user">${data.username}</span> <span class="time user">${data.time}</span>
+    `;
+    
+    chatMessages.appendChild(msgDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Listen for incoming messages
 socket.on('Message from Server to Clients', (data) => {
-  const msgDiv = document.createElement('div');
-  msgDiv.classList.add('message');
+    appendMessage(data);
+});
 
-  // Alignment
-  if (data.senderId === socket.id) {
-    msgDiv.classList.add('sent');      // right + blue
-  } else {
-    msgDiv.classList.add('received');  // left + gray
-  }
+// Send message logic
+send.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const newMessage = text.value.trim();
+    if (!newMessage) return;
 
-  // Message content with username and time
-  msgDiv.innerHTML = `
-    <strong>${data.username}</strong> <span class="time">${data.time}</span>
-    <div>${data.text}</div>
-  `;
+    // Save username for next time
+    localStorage.setItem('chat_username', usernameInput.value.trim());
 
-  chatMessages.appendChild(msgDiv);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
+    const messageObj = {
+        text: newMessage,
+        userId: myId, // Use the permanent ID
+        username: usernameInput.value.trim() || "Anonymous",
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    };
+
+    try {
+        await axios.post(API, messageObj);
+        socket.emit('Message from Client to Server', messageObj);
+        text.value = '';
+    } catch (err) {
+        console.error("Failed to save:", err);
+    }
+});
+
+// Load History
+window.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const res = await axios.get(API);
+        res.data.forEach(appendMessage);
+    } catch (error) {
+        console.error('Error fetching history:', error);
+    }
 });

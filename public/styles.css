@@ -34,11 +34,16 @@ body {
 }
 
 /* Messages */
+/* Messages container */
 .chat-messages {
   flex: 1;
   padding: 15px;
   background: #f9f9f9;
   overflow-y: auto;
+  
+  /* ADD THESE TWO LINES */
+  display: flex;
+  flex-direction: column; 
 }
 
 /* Message bubbles */
@@ -48,21 +53,51 @@ body {
   margin-bottom: 10px;
   border-radius: 10px;
   font-size: 14px;
+  
+  /* ADD THIS LINE to ensure bubbles don't stretch to 100% width */
+  width: fit-content; 
+}
+
+/* Sent - This stays the same, but now it will actually work */
+.sent {
+  background: #4f46e5;
+  color: white;
+  align-self: flex-end; /* Keeps your sent messages on the RIGHT */
 }
 
 /* Received */
 .received {
   background: #e5e7eb;
-  align-self: flex-start;
+  align-self: flex-start; /* Keeps received messages on the LEFT */
 }
 
-/* Sent */
-.sent {
-  background: #4f46e5;
-  color: white;
-  align-self: flex-end;
+/* The Tail for Sent messages */
+.sent::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: -8px;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-left-color: #4f46e5;
+    border-bottom: 0;
+    border-right: 0;
 }
 
+/* The Tail for Received messages */
+.received::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -8px;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-right-color: #e5e7eb;
+    border-bottom: 0;
+    border-left: 0;
+}
 /* Input area */
 .chat-input {
   display: flex;
@@ -86,4 +121,8 @@ body {
   color: white;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.user{
+    font-size: smaller;
 }
