@@ -30,6 +30,7 @@ const socket=io('http://localhost:4000' , {
 const text = document.querySelector('.chat-input input');
 const send = document.getElementById('send');
 const chatMessages = document.querySelector('.chat-messages');
+const usernameInput = document.getElementById('username');
 
 send.addEventListener('click', (e) => {
   e.preventDefault();
@@ -37,9 +38,15 @@ send.addEventListener('click', (e) => {
   const newMessage = text.value.trim();
   if (!newMessage) return;
 
+  // Get username, default to "Anonymous" if empty
+  const username = usernameInput.value.trim() || "Anonymous";
+
+  // Send message object to server
   socket.emit('Message from Client to Server', {
     text: newMessage,
-    senderId: socket.id
+    senderId: socket.id,
+    username: username,
+    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
   });
 
   text.value = '';
@@ -49,13 +56,19 @@ socket.on('Message from Server to Clients', (data) => {
   const msgDiv = document.createElement('div');
   msgDiv.classList.add('message');
 
+  // Alignment
   if (data.senderId === socket.id) {
     msgDiv.classList.add('sent');      // right + blue
   } else {
     msgDiv.classList.add('received');  // left + gray
   }
 
-  msgDiv.textContent = data.text;
+  // Message content with username and time
+  msgDiv.innerHTML = `
+    <strong>${data.username}</strong> <span class="time">${data.time}</span>
+    <div>${data.text}</div>
+  `;
+
   chatMessages.appendChild(msgDiv);
   chatMessages.scrollTop = chatMessages.scrollHeight;
 });
