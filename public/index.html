@@ -3,32 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Real-Time Chat with Notifications</title>
     <link rel="stylesheet" href="styles.css">
-
 </head>
 <body>
+    <div id="notification-container"></div>
+
+    <div class="main-layout">
+        <div class="sidebar">
+            <h3>Channels</h3>
+            <div id="channel-list"></div>
+            <button id="create-channel-btn">+ New Channel</button>
+        </div>
         <div class="chat-container">
-        <!-- Header -->
-        <div class="chat-header">
-        <h3>Chat App</h3>
-        <input type="text" id="username" placeholder="Enter your name" />
-        </div>
-
-        <!-- Messages -->
-        <div class="chat-messages">
-        
-        </div>
-
-        <!-- Input -->
-        <div class="chat-input">
-        <input type="text" placeholder="Type a message..." />
-        <button id="send">Send</button>
+            <div class="chat-header">
+                <h3 id="current-room-title"># general</h3>
+                <input type="text" id="username" placeholder="Your Name" />
+            </div>
+            <div class="chat-messages" id="chat-messages"></div>
+            <div class="chat-input">
+                <input type="text" id="msg-input" placeholder="Type a message..." />
+                <button id="send">Send</button>
+            </div>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
     <script src="scripts.js"></script>
-
 </body>
 </html>

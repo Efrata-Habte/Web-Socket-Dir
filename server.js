@@ -1,44 +1,27 @@
-// server side
+const express = require('express');
+const app = express();
+const { Server } = require('socket.io');
 
-const express= require('express')
-const app= express()
-app.use(express.static('public'))
-const expressServer = app.listen(4000)
+app.use(express.static('public'));
 
-// const socketio = require('socket.io')
+const expressServer = app.listen(4000, () => console.log("Server on 4000"));
 
-const {Server} = require ('socket.io')
+const io = new Server(expressServer, { cors: { origin: '*' } });
 
-const io = new Server (expressServer,{
-     cors : [
-        'http://localhost:4000'
-     ]
-})
+io.on('connection', (socket) => {
+    // Room logic
+    socket.on('join room', (roomName) => {
+        socket.rooms.forEach(room => { if (room !== socket.id) socket.leave(room); });
+        socket.join(roomName);
+    });
 
-io.on('connect',socket=>{
-//     console.log(socket.handshake)
+    // Message logic (Room-specific)
+    socket.on("Message from Client to Server", (data) => {
+        io.to(data.room).emit('Message from Server to Clients', data);
+    });
 
-//     console.log(socket.id,"Hakunamatata")
-
-//     socket.emit('welcome',[1,2,3]) // emit to this one socket
-
-//     io.emit("Hello All", socket.id) // emit to all sockets connected to the server
-
-//     socket.on('Thankyou', data=>{
-//         console.log("Message from client",data)
-//     })
-
-//     socket.emit('HI there',"Do you want to die")
-
-//     try{
-//     const response = await.io.timeout(10000).emitWithAck("Some-event");
-//     console.log(response)
-// } catch(e){
-//     console.log("some client didn't acknowledge the event in a given delay.")
-// }
-
-    socket.on("Message from Client to Server",newMessage=>{
-        io.emit('Message from Server to Clients', newMessage);
-    })
-})
-
+    // Channel logic (Global broadcast so everyone sees the new channel)
+    socket.on('New Channel Created', (channelObj) => {
+        io.emit('Add Channel to UI', channelObj);
+    });
+});

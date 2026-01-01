@@ -4,7 +4,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "concurrently \"json-server db.json --port 3000\" \"npm start\""
   },
   "keywords": [],
   "author": "",
@@ -12,6 +13,7 @@
   "description": "",
   "dependencies": {
     "axios": "^1.13.2",
+    "concurrently": "^8.2.2",
     "express": "^5.2.1",
     "json-server": "^1.0.0-beta.3",
     "nodemon": "^3.1.11",
