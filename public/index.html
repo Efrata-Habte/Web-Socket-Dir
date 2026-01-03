@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real-Time Chat with Notifications</title>
+    <title>Chat with Read Receipts</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="notification-container"></div>
-
     <div class="main-layout">
         <div class="sidebar">
             <h3>Channels</h3>
@@ -17,8 +16,17 @@
         </div>
         <div class="chat-container">
             <div class="chat-header">
-                <h3 id="current-room-title"># general</h3>
-                <input type="text" id="username" placeholder="Your Name" />
+                <div class="header-left"><h3 id="current-room-title"># general</h3></div>
+                <div class="header-right">
+                    <div class="notification-wrapper">
+                        <button id="noti-btn">🔔 <span id="noti-badge">0</span></button>
+                        <div id="noti-dropdown" class="hidden">
+                            <div class="noti-header">Notifications</div>
+                            <div id="noti-list"></div>
+                        </div>
+                    </div>
+                    <input type="text" id="username" placeholder="Your Name" />
+                </div>
             </div>
             <div class="chat-messages" id="chat-messages"></div>
             <div class="chat-input">
@@ -27,7 +35,6 @@
             </div>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
     <script src="scripts.js"></script>

@@ -1,67 +1,52 @@
 {
   "messages": [
     {
-      "id": "f4b0",
-      "text": "Hi there",
-      "room": "general",
+      "text": "Hey bexelsa",
+      "room": "abebe",
       "userId": "user_rhv84mcrs",
       "username": "Efrata",
-      "time": "22:41",
-      "socketId": "6ln5c6KGlbFUU6nsAAAL"
+      "time": "15:16",
+      "id": "8oijziavx",
+      "seenBy": [
+        "user_rhv84mcrs",
+        "user_2shuqwk8u"
+      ]
     },
     {
-      "id": "cab2",
-      "text": "are you okay",
+      "text": "hey how are you doing?",
+      "room": "abebe",
+      "userId": "user_2shuqwk8u",
+      "username": "Bexelsem",
+      "time": "03:16 PM",
+      "id": "5k69bitna",
+      "seenBy": [
+        "user_2shuqwk8u",
+        "user_rhv84mcrs"
+      ]
+    },
+    {
+      "text": "hi abebech",
       "room": "general",
-      "userId": "user_vc9bcssr0",
-      "username": "Anonymous",
-      "time": "22:42",
-      "socketId": "yNT-dcwvO-PCbFLiAAAB"
+      "userId": "user_2shuqwk8u",
+      "username": "Bexelsem",
+      "time": "03:17 PM",
+      "id": "plf5l6l15",
+      "seenBy": [
+        "user_2shuqwk8u",
+        "user_rhv84mcrs"
+      ]
     },
     {
-      "id": "5809",
-      "text": "efrata melese habte",
-      "room": "front-end",
+      "text": "baby I don't need dallar bills to have fun tonight",
+      "room": "abebe",
       "userId": "user_rhv84mcrs",
       "username": "Efrata",
-      "time": "22:43",
-      "socketId": "HXD-tBONLe1K6hvQAAAB"
-    },
-    {
-      "id": "871d",
-      "text": "hi",
-      "room": "front-end",
-      "userId": "user_rhv84mcrs",
-      "username": "Efrata",
-      "time": "22:52",
-      "socketId": "tkkD9yW52H6txbQdAAAB"
-    },
-    {
-      "id": "a133",
-      "text": "why are you doing that to hime",
-      "room": "general",
-      "userId": "user_vc9bcssr0",
-      "username": "Anonymous",
-      "time": "22:52",
-      "socketId": "PqyxBdshVqKEDT_GAAAD"
-    },
-    {
-      "id": "308c",
-      "text": "guyds",
-      "room": "general",
-      "userId": "user_vc9bcssr0",
-      "username": "Anonymous",
-      "time": "22:53",
-      "socketId": "Ldd8gHLElg8kk8fFAAAD"
-    },
-    {
-      "id": "8a08",
-      "text": "why are you here",
-      "room": "general",
-      "userId": "user_vc9bcssr0",
-      "username": "Anonymous",
-      "time": "22:53",
-      "socketId": "mZkzQuMXm1OYaw5UAAAB"
+      "time": "15:18",
+      "id": "psuh16acx",
+      "seenBy": [
+        "user_rhv84mcrs",
+        "user_2shuqwk8u"
+      ]
     }
   ],
   "channels": [
@@ -70,8 +55,13 @@
       "name": "general"
     },
     {
-      "id": "04aa",
-      "name": "front-end"
+      "id": "v1dvrlhe5",
+      "name": "abebe"
+    },
+    {
+      "id": "vtduk0nbx",
+      "name": "kebede"
     }
-  ]
+  ],
+  "notifications": []
 }

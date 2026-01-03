@@ -1,176 +1,218 @@
-const Base = 'http://localhost:3000';
-const socket = io('http://localhost:4000');
+const BASE_URL = 'http://localhost:4000';
+const socket = io(BASE_URL);
 
-socket.on('connect', () => console.log('Socket connected'));
-socket.on('disconnect', () => console.log('Socket disconnected'));
-
-// Request notification permission
-if ('Notification' in window && Notification.permission === 'default') {
-    Notification.requestPermission();
-}
+/* ---------------- STATE ---------------- */
+let myId = localStorage.getItem('chat_userId') || 'user_' + Math.random().toString(36).slice(2, 9);
+localStorage.setItem('chat_userId', myId);
 
 let currentRoom = 'general';
 
-if (!localStorage.getItem('chat_userId')) {
-    localStorage.setItem('chat_userId', 'user_' + Math.random().toString(36).substr(2, 9));
-}
-const myId = localStorage.getItem('chat_userId');
-
+/* ---------------- DOM ELEMENTS ---------------- */
 const msgInput = document.getElementById('msg-input');
 const chatMessages = document.getElementById('chat-messages');
 const usernameInput = document.getElementById('username');
 const channelList = document.getElementById('channel-list');
+const notiBtn = document.getElementById('noti-btn');
+const notiDropdown = document.getElementById('noti-dropdown');
+const notiList = document.getElementById('noti-list');
+const notiBadge = document.getElementById('noti-badge');
+const sendBtn = document.getElementById('send');
+const createChannelBtn = document.getElementById('create-channel-btn');
 
-usernameInput.value = localStorage.getItem('chat_username') || "";
+usernameInput.value = localStorage.getItem('chat_username') || '';
 
-// --- CHANNEL LOGIC ---
-async function loadChannels() {
-    const res = await axios.get(`${Base}/channels`);
-    channelList.innerHTML = '';
-    res.data.forEach(renderChannelLink);
+/* ---------------- NOTIFICATIONS ---------------- */
+
+// 1. Fixed Toggle Logic
+notiBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevents the document click listener from hiding it immediately
+    notiDropdown.classList.toggle('hidden');
+});
+
+// Hide dropdown when clicking anywhere else
+document.addEventListener('click', (e) => {
+    if (!notiDropdown.contains(e.target) && !notiBtn.contains(e.target)) {
+        notiDropdown.classList.add('hidden');
+    }
+});
+
+async function updateNotificationsUI() {
+    try {
+        const res = await axios.get(`${BASE_URL}/notifications`);
+        const filtered = res.data.filter(n => n.userId !== myId && n.room !== currentRoom);
+        
+        notiBadge.innerText = filtered.length;
+        notiBadge.style.display = filtered.length > 0 ? 'block' : 'none';
+
+        notiList.innerHTML = filtered.length === 0 ? '<div class="noti-item">No new messages</div>' : '';
+
+        filtered.forEach(n => {
+            const div = document.createElement('div');
+            div.className = 'noti-item';
+            div.innerHTML = `<strong>#${n.room}</strong><br>${n.username}: ${n.text.slice(0, 30)}...`;
+            div.onclick = async (e) => {
+                e.stopPropagation();
+                await axios.delete(`${BASE_URL}/notifications/${n.id}`);
+                switchRoom(n.room);
+                notiDropdown.classList.add('hidden');
+            };
+            notiList.appendChild(div);
+        });
+    } catch (err) {
+        console.error("Failed to update notifications:", err);
+    }
 }
 
-function renderChannelLink(channelObj) {
-    if (document.getElementById(`ch-${channelObj.name}`)) return;
+/* ---------------- CHAT LOGIC ---------------- */
+
+async function loadChannels() {
+    try {
+        const res = await axios.get(`${BASE_URL}/channels`);
+        channelList.innerHTML = '';
+        res.data.forEach(renderChannel);
+    } catch (err) {
+        console.error("Error loading channels:", err);
+    }
+}
+
+function renderChannel(channel) {
+    if (document.getElementById(`ch-${channel.name}`)) return;
     const div = document.createElement('div');
-    div.className = `channel-item ${channelObj.name === currentRoom ? 'active' : ''}`;
-    div.id = `ch-${channelObj.name}`;
-    div.innerText = `# ${channelObj.name}`;
-    div.onclick = () => switchRoom(channelObj.name, div);
+    div.id = `ch-${channel.name}`;
+    div.className = `channel-item ${channel.name === currentRoom ? 'active' : ''}`;
+    div.innerText = `# ${channel.name}`;
+    
+    // Using addEventListener is more reliable than .onclick
+    div.addEventListener('click', () => switchRoom(channel.name));
     channelList.appendChild(div);
 }
 
-window.switchRoom = (roomName, element) => {
-    currentRoom = roomName;
-    document.getElementById('current-room-title').innerText = `# ${roomName}`;
-    document.querySelectorAll('.channel-item').forEach(el => el.classList.remove('active'));
+window.switchRoom = async (room) => {
+    if (!room) return;
+    currentRoom = room;
     
-    // If element isn't provided (like when clicking a notification), find it by ID
-    const target = element || document.getElementById(`ch-${roomName}`);
-    if (target) target.classList.add('active');
+    // UI Updates
+    document.getElementById('current-room-title').innerText = `# ${room}`;
+    document.querySelectorAll('.channel-item').forEach(el => el.classList.remove('active'));
+    const active = document.getElementById(`ch-${room}`);
+    if (active) active.classList.add('active');
 
-    chatMessages.innerHTML = '';
-    socket.emit('join room', roomName);
-    loadHistory();
+    chatMessages.innerHTML = '<div class="loading">Loading messages...</div>';
+    socket.emit('join room', room);
+    
+    try {
+        // 1. Mark as read on server
+        await axios.post(`${BASE_URL}/messages/read`, { room, userId: myId });
+        
+        // 2. Load History
+        const res = await axios.get(`${BASE_URL}/messages?room=${room}`);
+        chatMessages.innerHTML = '';
+        res.data.forEach(renderMessage);
+        
+        // 3. Clear relevant notifications
+        const notis = await axios.get(`${BASE_URL}/notifications`);
+        const toDelete = notis.data.filter(n => n.room === room);
+        for (let n of toDelete) {
+            await axios.delete(`${BASE_URL}/notifications/${n.id}`);
+        }
+        
+        updateNotificationsUI();
+    } catch (err) {
+        console.error("Room switch error:", err);
+    }
 };
 
-document.getElementById('create-channel-btn').addEventListener('click', async () => {
-    const name = prompt("Channel name:").toLowerCase().replace(/\s+/g, '-');
-    if (!name) return;
-    try {
-        const res = await axios.post(`${Base}/channels`, { name });
-        socket.emit('New Channel Created', res.data);
-    } catch (e) { alert("Error creating channel"); }
-});
-
-socket.on('Add Channel to UI', (channelObj) => renderChannelLink(channelObj));
-
-// --- MESSAGE LOGIC ---
 function renderMessage(data) {
     if (data.room !== currentRoom) return;
-    const msgDiv = document.createElement('div');
-    msgDiv.className = `message ${data.userId === myId ? 'sent' : 'received'}`;
-    msgDiv.innerHTML = `<div>${data.text}</div><span class="user-tag">${data.username} • ${data.time}</span>`;
-    chatMessages.appendChild(msgDiv);
+    
+    const isMine = data.userId === myId;
+    const seenByOthers = data.seenBy && data.seenBy.length > 1;
+    const checkmark = isMine ? `<span class="check-mark">${seenByOthers ? '✓✓' : '✓'}</span>` : '';
+
+    const msg = document.createElement('div');
+    msg.className = `message ${isMine ? 'sent' : 'received'}`;
+    msg.innerHTML = `
+        <div>${data.text}</div>
+        <span class="user-tag">${data.username} • ${data.time} ${checkmark}</span>
+    `;
+    chatMessages.appendChild(msg);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-async function loadHistory() {
-    const res = await axios.get(`${Base}/messages?room=${currentRoom}`);
-    chatMessages.innerHTML = '';
-    res.data.forEach(renderMessage);
-}
+/* ---------------- SENDING ---------------- */
 
-document.getElementById('send').addEventListener('click', async (e) => {
-    e.preventDefault();
+const sendMessage = async () => {
     const text = msgInput.value.trim();
     if (!text) return;
 
-    const messageObj = {
-        text, room: currentRoom, userId: myId,
-        username: usernameInput.value || "Anonymous",
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        socketId: socket.id
+    const message = {
+        text,
+        room: currentRoom,
+        userId: myId,
+        username: usernameInput.value || 'Anonymous',
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
 
     msgInput.value = '';
-    localStorage.setItem('chat_username', messageObj.username);
+    localStorage.setItem('chat_username', message.username);
 
-    // Render own message immediately
-    renderMessage(messageObj);
+    // Optimistic UI (Show immediately)
+    renderMessage({ ...message, seenBy: [myId] });
 
-    await axios.post(`${Base}/messages`, messageObj);
-    socket.emit('Message from Client to Server', messageObj);
+    try {
+        await axios.post(`${BASE_URL}/messages`, message);
+        socket.emit('Message from Client to Server', message);
+    } catch (err) {
+        console.error("Failed to send message:", err);
+    }
+};
+
+sendBtn.addEventListener('click', sendMessage);
+
+// Allow Enter key to send
+msgInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') sendMessage();
 });
 
-// --- NOTIFICATION LOGIC ---
-function showNotification(data) {
-    console.log('showNotification called with:', data);
-    if (data.socketId === socket.id) {
-        console.log('Notification skipped: own socket message');
-        return;
+createChannelBtn.addEventListener('click', async () => {
+    const name = prompt('New channel name:')?.toLowerCase().replace(/\s+/g, '-');
+    if (!name) return;
+    try {
+        const res = await axios.post(`${BASE_URL}/channels`, { name });
+        socket.emit('New Channel Created', res.data);
+        renderChannel(res.data);
+    } catch (err) {
+        console.error("Error creating channel:", err);
     }
+});
 
-    const container = document.getElementById('notification-container');
-    if (!container) {
-        console.error('Notification container not found');
-        return;
-    }
-    console.log('Creating notification toast');
+/* ---------------- SOCKET EVENTS ---------------- */
 
-    // Browser notification
-    if ('Notification' in window && Notification.permission === 'granted') {
-        console.log('Creating browser notification for:', data.username);
-        try {
-            const notification = new Notification(`New Message from ${data.username}`, {
-                body: data.text.substring(0, 100) + (data.text.length > 100 ? '...' : ''),
-                tag: `msg-${data.userId}-${Date.now()}`, // Prevent duplicates
-            });
-            console.log('Browser notification created successfully');
-            notification.onclick = () => {
-                window.focus();
-                switchRoom(data.room);
-                notification.close();
-            };
-        } catch (e) {
-            console.error('Failed to create browser notification:', e);
-        }
-    } else {
-        console.log('Notification permission not granted or not supported');
-    }
-
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    const roomInfo = data.room !== currentRoom ? ` in #${data.room}` : "";
-
-    toast.innerHTML = `
-        <div class="toast-header">New Message from ${data.username}${roomInfo}</div>
-        <div class="toast-body">${data.text.substring(0, 50)}${data.text.length > 50 ? '...' : ''}</div>
-    `;
-
-    toast.onclick = () => {
-        switchRoom(data.room);
-        toast.remove();
-    };
-
-    container.appendChild(toast);
-
-    setTimeout(() => {
-        toast.style.opacity = '0';
-        setTimeout(() => toast.remove(), 300);
-    }, 4000);
-}
-
-// --- SINGLE COMBINED SOCKET LISTENER ---
 socket.on('Message from Server to Clients', (data) => {
-    console.log('Received message event:', data);
-    renderMessage(data); // Render if in current room
-    showNotification(data); // Notify if sender is someone else
+    renderMessage(data);
+    // Mark as read immediately if we are in the room
+    axios.post(`${BASE_URL}/messages/read`, { room: currentRoom, userId: myId });
 });
 
-// Start
+socket.on('Global Notification', (data) => {
+    updateNotificationsUI();
+});
+
+socket.on('Messages Seen Update', async (data) => {
+    if (data.room === currentRoom) {
+        const res = await axios.get(`${BASE_URL}/messages?room=${currentRoom}`);
+        chatMessages.innerHTML = '';
+        res.data.forEach(renderMessage);
+    }
+});
+
+socket.on('Add Channel to UI', (channel) => {
+    renderChannel(channel);
+});
+
+/* ---------------- INIT ---------------- */
+
 window.addEventListener('DOMContentLoaded', () => {
-    socket.emit('join room', currentRoom);
     loadChannels();
-    loadHistory();
+    switchRoom('general');
 });

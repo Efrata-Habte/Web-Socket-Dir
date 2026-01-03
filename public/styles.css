@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Segoe UI', sans-serif;
 }
 
 body {
@@ -17,7 +17,6 @@ body {
     height: 100vh;
 }
 
-/* Sidebar */
 .sidebar {
     width: 260px;
     background: #1e1e2e;
@@ -27,21 +26,18 @@ body {
     padding: 20px;
 }
 
-.sidebar-header {
-    margin-bottom: 20px;
-}
-
 .channel-item {
-    padding: 10px 15px;
+    padding: 10px;
     border-radius: 5px;
     cursor: pointer;
     margin-bottom: 5px;
-    transition: 0.2s;
     color: #a2a2c2;
 }
 
-.channel-item:hover { background: #2d2d44; }
-.channel-item.active { background: #4f46e5; color: white; }
+.channel-item.active {
+    background: #4f46e5;
+    color: white;
+}
 
 #create-channel-btn {
     margin-top: auto;
@@ -49,11 +45,9 @@ body {
     border: 1px dashed #4f46e5;
     color: #4f46e5;
     padding: 10px;
-    border-radius: 5px;
     cursor: pointer;
 }
 
-/* Chat Container */
 .chat-container {
     flex: 1;
     display: flex;
@@ -69,48 +63,100 @@ body {
     align-items: center;
 }
 
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.notification-wrapper {
+    position: relative;
+}
+
+#noti-btn {
+    background: #eee;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    position: relative;
+}
+
+#noti-badge {
+    position: absolute;
+    top: -5px;
+    right: -2px;
+    background: #ff4757;
+    color: white;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    display: none;
+}
+
+#noti-dropdown {
+    position: absolute;
+    right: 0;
+    top: 45px;
+    width: 280px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.hidden {
+    display: none;
+}
+
+.noti-item {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    font-size: 13px;
+}
+
 .chat-messages {
     flex: 1;
     padding: 20px;
     overflow-y: auto;
+    background: #f9f9f9;
     display: flex;
     flex-direction: column;
-    background: #f9f9f9;
 }
 
-/* Bubbles */
 .message {
     max-width: 70%;
-    padding: 10px 15px;
+    padding: 10px;
     margin-bottom: 10px;
-    border-radius: 15px;
-    font-size: 14px;
-    position: relative;
-    line-height: 1.4;
+    border-radius: 10px;
 }
 
 .sent {
     background: #4f46e5;
     color: white;
     align-self: flex-end;
-    border-bottom-right-radius: 2px;
 }
 
 .received {
     background: #e5e7eb;
-    color: #333;
     align-self: flex-start;
-    border-bottom-left-radius: 2px;
 }
 
 .user-tag {
-    display: block;
     font-size: 10px;
     margin-top: 5px;
-    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
-/* Input Area */
+.check-mark {
+    font-weight: bold;
+    color: #4fc3f7; /* WhatsApp-style blue */
+}
+
 .chat-input {
     padding: 20px;
     border-top: 1px solid #ddd;
@@ -119,59 +165,16 @@ body {
 
 .chat-input input {
     flex: 1;
-    padding: 12px;
-    border: 1px solid #ccc;
+    padding: 10px;
+    border: 1px solid #ddd;
     border-radius: 5px;
-    outline: none;
 }
 
 .chat-input button {
     margin-left: 10px;
-    padding: 0 20px;
+    padding: 10px 20px;
     background: #4f46e5;
     color: white;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
 }
-
-/* Notification Container */
-#notification-container {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-/* Individual Toast */
-.toast {
-    background: #1e1e2e;
-    color: white;
-    padding: 15px 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    border-left: 4px solid #4f46e5;
-    min-width: 250px;
-    cursor: pointer;
-    animation: slideIn 0.3s ease-out;
-    transition: opacity 0.3s;
-}
-
-.toast-header {
-    font-size: 12px;
-    color: #a2a2c2;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-.toast-body {
-    font-size: 14px;
-}
-
-@keyframes slideIn {
-    from { transform: translateX(100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-} 
