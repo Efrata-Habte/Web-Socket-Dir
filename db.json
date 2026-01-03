@@ -1,498 +1,67 @@
 {
   "messages": [
     {
-      "id": "2db0",
-      "text": "Hi user 2",
+      "id": "f4b0",
+      "text": "Hi there",
+      "room": "general",
       "userId": "user_rhv84mcrs",
-      "username": "User 1",
-      "time": "14:20",
-      "room": "general"
+      "username": "Efrata",
+      "time": "22:41",
+      "socketId": "6ln5c6KGlbFUU6nsAAAL"
     },
     {
-      "id": "0529",
-      "text": "I am fine User 1",
-      "userId": "user_70qt3nst6",
-      "username": "user 2",
-      "time": "14:21",
-      "room": "general"
-    },
-    {
-      "id": "091d",
-      "text": "hi there",
-      "userId": "user_rhv84mcrs",
-      "username": "User 1",
-      "time": "22:55",
-      "room": "general"
-    },
-    {
-      "id": "4617",
-      "text": "hi there 3",
-      "userId": "user_0mc8qz66c",
+      "id": "cab2",
+      "text": "are you okay",
+      "room": "general",
+      "userId": "user_vc9bcssr0",
       "username": "Anonymous",
-      "time": "22:55",
-      "room": "general"
+      "time": "22:42",
+      "socketId": "yNT-dcwvO-PCbFLiAAAB"
     },
     {
-      "id": "7899",
-      "text": "hi z",
-      "userId": "user_0mc8qz66c",
-      "username": "belete",
-      "time": "22:56",
-      "room": "general"
-    },
-    {
-      "id": "9db8",
-      "text": "hi there",
+      "id": "5809",
+      "text": "efrata melese habte",
+      "room": "front-end",
       "userId": "user_rhv84mcrs",
-      "username": "User 1",
-      "time": "09:25",
-      "room": "general"
+      "username": "Efrata",
+      "time": "22:43",
+      "socketId": "HXD-tBONLe1K6hvQAAAB"
     },
     {
-      "id": "628f",
-      "text": "fs project",
-      "userId": "user_822dgctxy",
-      "username": "abebe",
-      "time": "09:25",
-      "room": "general"
-    },
-    {
-      "id": "ffd6",
-      "text": "user one",
-      "userId": "user_rhv84mcrs",
-      "username": "User 1",
-      "time": "10:16",
-      "room": "general"
-    },
-    {
-      "id": "a038",
-      "text": "hi there frontend team",
-      "room": "frontend",
-      "userId": "user_dki4o554n",
-      "username": "Anonymous",
-      "time": "14:13"
-    },
-    {
-      "id": "12f3",
-      "text": "hi there guys",
-      "room": "frontend",
-      "userId": "user_rhv84mcrs",
-      "username": "User 1",
-      "time": "14:13"
-    },
-    {
-      "id": "e402",
-      "text": "what is the problem",
-      "room": "frontend",
-      "userId": "user_rhv84mcrs",
-      "username": "User 1",
-      "time": "14:13"
-    },
-    {
-      "id": "70c4",
-      "text": "hi there",
-      "room": "mawdeldeya",
-      "userId": "user_rhv84mcrs",
-      "username": "User 1",
-      "time": "14:14"
-    },
-    {
-      "id": "02c5",
-      "text": "hiiiii",
-      "room": "mawdeldeya",
-      "userId": "user_dki4o554n",
-      "username": "the",
-      "time": "14:15"
-    },
-    {
-      "id": "d4f1",
-      "text": "hi there guys",
-      "room": "mawdeldeya",
-      "userId": "user_lflx9kp3a",
-      "username": "beti",
-      "time": "14:16"
-    },
-    {
-      "id": "cf51",
-      "text": "hey team",
-      "room": "backend",
-      "userId": "user_rhv84mcrs",
-      "username": "User 1",
-      "time": "14:17"
-    },
-    {
-      "id": "1cd0",
-      "text": "how u doin",
-      "room": "backend",
-      "userId": "user_lflx9kp3a",
-      "username": "beti",
-      "time": "14:18"
-    },
-    {
-      "id": "15ba",
-      "text": "hi there",
-      "room": "general",
-      "userId": "user_dki4o554n",
-      "username": "the",
-      "time": "14:31"
-    },
-    {
-      "id": "9ceb",
-      "text": "hhiiii",
-      "room": "general",
-      "userId": "user_dki4o554n",
-      "username": "the",
-      "time": "14:31"
-    },
-    {
-      "id": "44be",
-      "text": "hi there",
-      "room": "general",
-      "userId": "user_lflx9kp3a",
-      "username": "beti",
-      "time": "14:32"
-    },
-    {
-      "id": "1d05",
-      "text": "what's happening",
-      "room": "general",
-      "userId": "user_lflx9kp3a",
-      "username": "beti",
-      "time": "14:32"
-    },
-    {
-      "id": "b9b4",
-      "text": "hiii",
-      "room": "general",
-      "userId": "user_lflx9kp3a",
-      "username": "beti",
-      "time": "14:33"
-    },
-    {
-      "id": "587f",
-      "text": "sdfgbhnm,.",
-      "room": "general",
-      "userId": "user_lflx9kp3a",
-      "username": "beti",
-      "time": "14:33"
-    },
-    {
-      "id": "bc47",
-      "text": "hena the great",
-      "room": "mawdeldeya",
-      "userId": "user_rhv84mcrs",
-      "username": "User 1",
-      "time": "14:38"
-    },
-    {
-      "id": "82c0",
-      "text": "hi bro",
-      "room": "backend",
-      "userId": "user_lflx9kp3a",
-      "username": "beti",
-      "time": "14:48"
-    },
-    {
-      "id": "c517",
-      "text": "hi there",
-      "room": "backend",
-      "userId": "user_lflx9kp3a",
-      "username": "beti",
-      "time": "14:49"
-    },
-    {
-      "id": "f9e1",
-      "text": "new chat",
-      "room": "backend",
-      "userId": "user_lflx9kp3a",
-      "username": "beti",
-      "time": "14:51"
-    },
-    {
-      "id": "6032",
-      "text": "hi there",
-      "room": "backend",
-      "userId": "user_rhv84mcrs",
-      "username": "User 1",
-      "time": "14:51"
-    },
-    {
-      "id": "e4d1",
-      "text": "hi there",
-      "room": "backend",
-      "userId": "user_rhv84mcrs",
-      "username": "User 1",
-      "time": "14:52"
-    },
-    {
-      "id": "150f",
-      "text": "hi there",
-      "room": "general",
-      "userId": "user_rhv84mcrs",
-      "username": "User 1",
-      "time": "14:52"
-    },
-    {
-      "id": "c347",
-      "text": "hi there",
-      "room": "backend",
-      "userId": "user_lflx9kp3a",
-      "username": "beti",
-      "time": "14:52"
-    },
-    {
-      "id": "420f",
-      "text": "gthyu",
-      "room": "backend",
-      "userId": "user_lflx9kp3a",
-      "username": "beti",
-      "time": "14:52"
-    },
-    {
-      "id": "8d32",
-      "text": "thanks",
-      "room": "backend",
-      "userId": "user_rhv84mcrs",
-      "username": "User 1",
-      "time": "14:53"
-    },
-    {
-      "id": "1ce9",
-      "text": "ghyh",
-      "room": "backend",
-      "userId": "user_lflx9kp3a",
-      "username": "beti",
-      "time": "14:53"
-    },
-    {
-      "id": "0b35",
-      "text": "please notify me",
-      "room": "backend",
-      "userId": "user_lflx9kp3a",
-      "username": "beti",
-      "time": "14:54"
-    },
-    {
-      "id": "d1e1",
-      "text": "please notify me",
-      "room": "backend",
-      "userId": "user_rhv84mcrs",
-      "username": "User 1",
-      "time": "14:55"
-    },
-    {
-      "id": "f26c",
-      "text": "please please",
-      "room": "general",
-      "userId": "user_lflx9kp3a",
-      "username": "beti",
-      "time": "14:55"
-    },
-    {
-      "id": "2988",
-      "text": "my baby my valantine",
-      "room": "backend",
-      "userId": "user_lflx9kp3a",
-      "username": "beti",
-      "time": "14:56"
-    },
-    {
-      "id": "fb1b",
-      "text": "thanks",
-      "room": "backend",
-      "userId": "user_rhv84mcrs",
-      "username": "User 1",
-      "time": "14:56"
-    },
-    {
-      "id": "eb28",
-      "text": "thyujjn",
-      "room": "backend",
-      "userId": "user_lflx9kp3a",
-      "username": "beti",
-      "time": "14:56"
-    },
-    {
-      "id": "0617",
-      "text": "like mawdeldeya",
-      "room": "mawdeldeya",
-      "userId": "user_lflx9kp3a",
-      "username": "beti",
-      "time": "14:57"
-    },
-    {
-      "id": "a0f9",
-      "text": "romeo",
-      "room": "mawdeldeya",
-      "userId": "user_rhv84mcrs",
-      "username": "User 1",
-      "time": "14:57"
-    },
-    {
-      "id": "5a74",
-      "text": "kkkkk",
-      "room": "mawdeldeya",
-      "userId": "user_rhv84mcrs",
-      "username": "User 1",
-      "time": "14:58"
-    },
-    {
-      "id": "bdf0",
-      "text": "kkkkkkkkkkkkkkkkkk",
-      "room": "mawdeldeya",
-      "userId": "user_lflx9kp3a",
-      "username": "beti",
-      "time": "14:58"
-    },
-    {
-      "id": "65c3",
-      "text": "hci",
-      "room": "frontend",
-      "userId": "user_lflx9kp3a",
-      "username": "beti",
-      "time": "14:58"
-    },
-    {
-      "id": "b8c6",
-      "text": "hct",
-      "room": "mawdeldeya",
-      "userId": "user_rhv84mcrs",
-      "username": "User 1",
-      "time": "14:59"
-    },
-    {
-      "id": "a6b7",
-      "text": "hct",
-      "room": "frontend",
-      "userId": "user_rhv84mcrs",
-      "username": "User 1",
-      "time": "14:59"
-    },
-    {
-      "id": "7849",
-      "text": "why are you not working",
-      "room": "general",
-      "userId": "user_lflx9kp3a",
-      "username": "beti",
-      "time": "14:59",
-      "socketId": "eVzRaFMGKqH94oaQAAAJ"
-    },
-    {
-      "id": "921d",
-      "text": "I am working fine",
-      "room": "general",
-      "userId": "user_rhv84mcrs",
-      "username": "User 1",
-      "time": "15:00",
-      "socketId": "WBLnp0MRrWqG5GCoAAAD"
-    },
-    {
-      "id": "a98b",
-      "text": "hey guys",
-      "room": "general",
-      "userId": "user_rhv84mcrs",
-      "username": "User 1",
-      "time": "15:04",
-      "socketId": "FzxOgc1l5BIWbOL-AAAH"
-    },
-    {
-      "id": "e924",
-      "text": "hey yoo",
-      "room": "general",
-      "userId": "user_lflx9kp3a",
-      "username": "beti",
-      "time": "15:04",
-      "socketId": "ZNOUzamIz_jY2Qu5AAAD"
-    },
-    {
-      "id": "88be",
-      "text": "hey",
-      "room": "general",
-      "userId": "user_lflx9kp3a",
-      "username": "beti",
-      "time": "15:05",
-      "socketId": "hT9w2ZWkGg7lkxeTAAAD"
-    },
-    {
-      "id": "76ff",
-      "text": "hi there",
-      "room": "general",
-      "userId": "user_rhv84mcrs",
-      "username": "User 1",
-      "time": "15:05",
-      "socketId": "llPkYfYqRIVMTFYbAAAB"
-    },
-    {
-      "id": "d1b3",
-      "text": "new commit",
-      "room": "general",
-      "userId": "user_lflx9kp3a",
-      "username": "beti",
-      "time": "15:06",
-      "socketId": "GXJQLjQYWYMjU65wAAAF"
-    },
-    {
-      "id": "a824",
-      "text": "huray",
-      "room": "backend",
-      "userId": "user_fx0uuduli",
-      "username": "Anonymous",
-      "time": "15:16",
-      "socketId": "_Fplt0Q4Fur6unPTAAAF"
-    },
-    {
-      "id": "fb15",
-      "text": "hi there",
-      "room": "general",
-      "userId": "user_7qkftt6v1",
-      "username": "Anonymous",
-      "time": "14:27",
-      "socketId": "47pdWmKbkEPu1T5uAAAD"
-    },
-    {
-      "id": "c326",
+      "id": "871d",
       "text": "hi",
+      "room": "front-end",
+      "userId": "user_rhv84mcrs",
+      "username": "Efrata",
+      "time": "22:52",
+      "socketId": "tkkD9yW52H6txbQdAAAB"
+    },
+    {
+      "id": "a133",
+      "text": "why are you doing that to hime",
       "room": "general",
-      "userId": "user_7qkftt6v1",
-      "username": "sndedo",
-      "time": "14:28",
-      "socketId": "2GHVK8wRjuZv9inSAAAB"
+      "userId": "user_vc9bcssr0",
+      "username": "Anonymous",
+      "time": "22:52",
+      "socketId": "PqyxBdshVqKEDT_GAAAD"
     },
     {
-      "id": "460d",
-      "text": "what's happening",
-      "room": "backend",
-      "userId": "user_7qkftt6v1",
-      "username": "sndedo",
-      "time": "14:28",
-      "socketId": "A-QWNZv2jGf4wteZAAAB"
+      "id": "308c",
+      "text": "guyds",
+      "room": "general",
+      "userId": "user_vc9bcssr0",
+      "username": "Anonymous",
+      "time": "22:53",
+      "socketId": "Ldd8gHLElg8kk8fFAAAD"
     },
     {
-      "id": "7e6d",
-      "text": "hi",
-      "room": "backend",
-      "userId": "user_rhv84mcrs",
-      "username": "User 1",
-      "time": "14:29",
-      "socketId": "RtMWllrRnfKdrF4BAAAB"
-    },
-    {
-      "id": "aacf",
-      "text": "hh",
-      "room": "how-to-be-fat",
-      "userId": "user_7qkftt6v1",
-      "username": "sndedo",
-      "time": "14:29",
-      "socketId": "Wo5-xlWyqxoMKnMvAAAB"
-    },
-    {
-      "id": "89e9",
-      "text": "jk",
-      "room": "how-to-be-fat",
-      "userId": "user_rhv84mcrs",
-      "username": "User 1",
-      "time": "14:30",
-      "socketId": "SnKNCoxE3GcxAddmAAAB"
+      "id": "8a08",
+      "text": "why are you here",
+      "room": "general",
+      "userId": "user_vc9bcssr0",
+      "username": "Anonymous",
+      "time": "22:53",
+      "socketId": "mZkzQuMXm1OYaw5UAAAB"
     }
   ],
   "channels": [
@@ -501,20 +70,8 @@
       "name": "general"
     },
     {
-      "id": "ae00",
-      "name": "frontend"
-    },
-    {
-      "id": "f682",
-      "name": "mawdeldeya"
-    },
-    {
-      "id": "9afa",
-      "name": "backend"
-    },
-    {
-      "id": "e679",
-      "name": "how-to-be-fat"
+      "id": "04aa",
+      "name": "front-end"
     }
   ]
 }
